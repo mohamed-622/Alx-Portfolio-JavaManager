@@ -1,0 +1,6 @@
+.pyc
+.pyo
+.venv
+__pycache__
+*/__pycache__
+notes.txt
