@@ -2,15 +2,65 @@
 <html>
 <head>
     <title>Order History</title>
+    <script>
+        // Function to filter orders by selected date
+        function filterOrdersByDate() {
+            const selectedDate = document.getElementById('calendar').value;
+            console.log("Selected Date:", selectedDate); // Log the selected date
+        
+            const orderElements = document.querySelectorAll('.order-item');
+            console.log("Order Elements:", orderElements); // Log all orders for debugging
+        
+            const formattedDate = new Date(selectedDate).toLocaleDateString();
+            console.log("Formatted Date:", formattedDate); // Log formatted date
+        
+            orderElements.forEach(order => {
+                const orderDate = order.getAttribute('data-date');
+                console.log("Order Date:", orderDate); // Log each order's date
+        
+                if (orderDate === selectedDate) {
+                    console.log("Showing order:", order); // Log visible orders
+                    order.style.display = 'block';
+                } else {
+                    console.log("Hiding order:", order); // Log hidden orders
+                    order.style.display = 'none';
+                }
+            });
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .calendar-container {
+            margin-bottom: 20px;
+        }
+        .order-item {
+            margin-bottom: 15px;
+        }
+        .order-item small {
+            display: block;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
     <h1>Order History</h1>
     <a href="{{ url_for('orders') }}">Back to Orders</a>
-    <ul>
+
+    <!-- Calendar for selecting date -->
+    <div class="calendar-container">
+        <label for="calendar">Filter by Date:</label>
+        <input type="date" id="calendar" onchange="filterOrdersByDate()">
+    </div>
+
+    <!-- List of Orders -->
+    <ul id="order-list">
         {% for order in orders %}
-            <li>
-                {{ order.order_number }}: {{ order.description }} - {{ order.total_price }} MAD<br>
-                <small>Ordered on: {{ order.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+            <li class="order-item" data-date="{{ order.created_at.strftime('%Y-%m-%d') }}">
+                <strong>{{ order.order_number }}</strong>: {{ order.description }} - {{ order.total_price }} MAD
+                <small>Ordered on: {{ order.created_at.strftime('%Y-%m-%d') }}</small>
             </li>
         {% endfor %}
     </ul>
