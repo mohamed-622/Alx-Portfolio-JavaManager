@@ -31,8 +31,19 @@ class MenuItem(db.Model):
     __tablename__ = 'menu_items'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    size = db.Column(db.String(50), nullable=False)
-    price = db.Column(db.Float, nullable=False)
+    
+    # Relationship with SizePrice
+    sizes = db.relationship('SizePrice', back_populates='menu_item', cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<MenuItem {self.name} ({self.size})>'
+
+class SizePrice(db.Model):
+    __tablename__ = 'size_prices'
+    id = db.Column(db.Integer, primary_key=True)
+    size = db.Column(db.String(50), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    menu_item_id = db.Column(db.Integer, db.ForeignKey('menu_items.id'), nullable=False)
+
+    # Relationship back to the parent MenuItem
+    menu_item = db.relationship('MenuItem', back_populates='sizes')

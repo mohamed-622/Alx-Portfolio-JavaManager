@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, session, flash, current_app as app
 from . import db
-from .models import User, Order, MenuItem
+from .models import User, Order, MenuItem, SizePrice
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -84,3 +84,28 @@ def order_history():
     user_orders = Order.query.filter_by(user_id=session['user_id']).order_by(Order.created_at.desc()).all()
 
     return render_template('order_history.html', orders=user_orders)
+
+@app.route('/menu', methods=['GET', 'POST'])
+def menu_management():
+    if 'user_id' not in session:
+        flash('Please log in to access the menu management page.', 'warning')
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        # Add a new menu item
+        name = request.form.get('name')
+        sizes = request.form.getlist('size')  # List of sizes
+        prices = request.form.getlist('price')  # List of corresponding prices
+
+        if name and sizes and prices and len(sizes) == len(prices):
+            new_item = MenuItem(name=name)
+            for size, price in zip(sizes, prices):
+                new_item.sizes.append(SizePrice(size=size, price=float(price)))
+            db.session.add(new_item)
+            db.session.commit()
+            flash(f'Menu item "{name}" added successfully!', 'success')
+        else:
+            flash('Please provide valid input for name, sizes, and prices.', 'danger')
+
+    menu_items = MenuItem.query.all()
+    return render_template('menu.html', menu_items=menu_items)

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu Management</title>
+</head>
+<body>
+    <h1>Menu Management</h1>
+
+    <h2>Current Menu</h2>
+    <ul>
+        {% for item in menu_items %}
+            <li>
+                <strong>{{ item.name }}</strong>
+                <ul>
+                    {% for size in item.sizes %}
+                        <li>{{ size.size }} - {{ size.price }} MAD</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add New Menu Item</h2>
+    <form method="POST">
+        <input type="text" name="name" placeholder="Item Name" required>
+        <div id="size-price-container">
+            <div>
+                <input type="text" name="size" placeholder="Size (e.g., 30 cl)" required>
+                <input type="number" step="0.01" name="price" placeholder="Price (e.g., 5.00)" required>
+            </div>
+        </div>
+        <button type="button" id="add-size-price">Add Size & Price</button>
+        <button type="submit">Add Menu Item</button>
+    </form>
+
+    <script>
+        document.getElementById('add-size-price').addEventListener('click', function() {
+            const container = document.getElementById('size-price-container');
+            const newInputGroup = document.createElement('div');
+            newInputGroup.innerHTML = `
+                <input type="text" name="size" placeholder="Size (e.g., 30 cl)" required>
+                <input type="number" step="0.01" name="price" placeholder="Price (e.g., 5.00)" required>
+            `;
+            container.appendChild(newInputGroup);
+        });
+    </script>
+</body>
+</html>
