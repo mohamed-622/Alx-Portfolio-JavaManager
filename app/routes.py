@@ -19,11 +19,13 @@ def login():
     
     return render_template('login.html')
 
+
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
     flash('Logged out successfully!', 'success')
     return redirect(url_for('login'))
+
 
 @app.route('/orders', methods=['GET'])
 def orders():
@@ -36,6 +38,7 @@ def orders():
     user_orders = Order.query.filter_by(user_id=session['user_id']).all()
     
     return render_template('orders.html', menu_items=menu_items, orders=user_orders)
+
 
 @app.route('/create_order', methods=['POST'])
 def create_order():
@@ -69,3 +72,15 @@ def create_order():
     
     flash('Order added successfully!', 'success')
     return redirect(url_for('orders'))
+
+
+@app.route('/order_history', methods=['GET'])
+def order_history():
+    if 'user_id' not in session:
+        flash('Please log in to view order history!', 'warning')
+        return redirect(url_for('login'))
+
+    # Fetch user-specific orders sorted by date
+    user_orders = Order.query.filter_by(user_id=session['user_id']).order_by(Order.created_at.desc()).all()
+
+    return render_template('order_history.html', orders=user_orders)
