@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Orders</title>
+</head>
+<body>
+    <h1>Menu</h1>
+<ul>
+    {% for item_name, details in menu_items|groupby('name') %}
+        <li>
+            <strong>{{ item_name }}</strong>
+            <form method="POST" action="{{ url_for('create_order') }}">
+                <label for="size-{{ loop.index }}">Size:</label>
+                <select name="size" id="size-{{ loop.index }}">
+                    {% for option in details %}
+                        <option value="{{ option.size }}">{{ option.size }} - {{ option.price }} MAD</option>
+                    {% endfor %}
+                </select>
+                <label for="quantity-{{ loop.index }}">Quantity:</label>
+                <input type="number" name="quantity" id="quantity-{{ loop.index }}" value="1" min="1" required>
+                <input type="hidden" name="item_name" value="{{ item_name }}">
+                <button type="submit">Add to Order</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

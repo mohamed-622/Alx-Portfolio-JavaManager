@@ -12,15 +12,27 @@ class User(db.Model):
     def __repr__(self):
         return f"<User {self.username}>"
 
-class Order(db.M.utcnower, primary_key=True):
+class Order(db.Model):
+    __tablename__ = 'orders'
+    id = db.Column(db.Integer, primary_key=True)
     order_number = db.Column(db.String(50), unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     description = db.Column(db.Text, nullable=False)
     total_price = db.Column(db.Float, nullable=False)
-    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Relationship with User
     user = db.relationship('User', backref='orders', lazy=True)
 
     def __repr__(self):
         return f"<Order {self.order_number}>"
+
+class MenuItem(db.Model):
+    __tablename__ = 'menu_items'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    size = db.Column(db.String(50), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+
+    def __repr__(self):
+        return f'<MenuItem {self.name} ({self.size})>'

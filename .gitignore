@@ -4,3 +4,5 @@
 __pycache__
 */__pycache__
 notes.txt
+seed.py
+.gitignore
