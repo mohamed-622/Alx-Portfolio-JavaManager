@@ -2,33 +2,7 @@
 <html>
 <head>
     <title>Orders</title>
-    <style>
-        body {
-            display: flex;
-            font-family: Arial, sans-serif;
-        }
-        .sidebar {
-            width: 200px;
-            background-color: #f4f4f4;
-            padding: 15px;
-            height: 100vh;
-        }
-        .sidebar a {
-            display: block;
-            color: #333;
-            text-decoration: none;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .sidebar a:hover {
-            background-color: #ddd;
-        }
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="sidebar">
@@ -37,22 +11,16 @@
         <a href="{{ url_for('logout') }}">Logout</a>
     </div>
     <div class="content">
-        <h1>Last Orders</h1>
-        <ul>
-            {% for order in orders %}
-                <li>{{ order.description }} - {{ order.total_price }} MAD - {{ order.created_at.strftime('%H:%M') }}</li>
-            {% endfor %}
-        </ul>
         <h1>Menu</h1>
         <ul>
             {% for item in menu_items %}
-                <li>
-                    <strong>{{ item.name }}</strong>
-                    <form method="POST" action="{{ url_for('create_order') }}">
-                        <label for="size-{{ loop.index }}">Size:</label>
-                        <select name="size" id="size-{{ loop.index }}">
-                            {% for size in item.sizes %}
-                                <option value="{{ size.size }}">{{ size.size }} - {{ size.price }} MAD</option>
+            <li>
+                <strong>{{ item.name }}</strong>
+                <form method="POST" action="{{ url_for('create_order') }}">
+                    <label for="size-{{ loop.index }}">Size:</label>
+                    <select name="size" id="size-{{ loop.index }}">
+                        {% for size in item.sizes %}
+                        <option value="{{ size.size }}">{{ size.size }} - {{ size.price }} MAD</option>
                             {% endfor %}
                         </select>
                         <label for="quantity-{{ loop.index }}">Quantity:</label>
@@ -61,8 +29,14 @@
                         <button type="submit">Add to Order</button>
                     </form>
                 </li>
-            {% endfor %}
-        </ul>
-    </div>
+                {% endfor %}
+            </ul>
+            <h1>Last Orders</h1>
+            <ul>
+                {% for order in orders %}
+                    <li>{{ order.description }} - {{ order.total_price }} MAD - {{ order.created_at.strftime('%H:%M') }}</li>
+                {% endfor %}
+            </ul>
+        </div>
 </body>
 </html>
