@@ -33,6 +33,7 @@
 <body>
     <div class="sidebar">
         <a href="{{ url_for('order_history') }}">Order History</a>
+        <a href="{{ url_for('menu_management') }}">Menu</a>
         <a href="{{ url_for('logout') }}">Logout</a>
     </div>
     <div class="content">
@@ -44,24 +45,24 @@
         </ul>
         <h1>Menu</h1>
         <ul>
-            {% for item_name, details in menu_items|groupby('name') %}
+            {% for item in menu_items %}
                 <li>
-                    <strong>{{ item_name }}</strong>
+                    <strong>{{ item.name }}</strong>
                     <form method="POST" action="{{ url_for('create_order') }}">
                         <label for="size-{{ loop.index }}">Size:</label>
                         <select name="size" id="size-{{ loop.index }}">
-                            {% for option in details %}
-                                <option value="{{ option.size }}">{{ option.size }} - {{ option.price }} MAD</option>
+                            {% for size in item.sizes %}
+                                <option value="{{ size.size }}">{{ size.size }} - {{ size.price }} MAD</option>
                             {% endfor %}
                         </select>
                         <label for="quantity-{{ loop.index }}">Quantity:</label>
                         <input type="number" name="quantity" id="quantity-{{ loop.index }}" value="1" min="1" required>
-                        <input type="hidden" name="item_name" value="{{ item_name }}">
+                        <input type="hidden" name="item_name" value="{{ item.name }}">
                         <button type="submit">Add to Order</button>
                     </form>
                 </li>
-    {% endfor %}
-</ul>
-
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>

@@ -1,6 +1,8 @@
 from flask import render_template, request, redirect, url_for, session, flash, current_app as app
 from . import db
 from .models import User, Order, MenuItem, SizePrice
+from sqlalchemy.orm import joinedload
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -19,6 +21,33 @@ def login():
     
     return render_template('login.html')
 
+@app.route('/new_user', methods=['GET', 'POST'])
+def new_user():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        email = request.form.get('email')
+        
+        if not username or not password or not email:
+            flash('All three inputs are required.', 'danger')
+            return redirect(url_for('new_user'))
+        
+        # Check if the user already exists
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            flash('Username already exists. Please choose a different one.', 'danger')
+            return redirect(url_for('new_user'))
+
+        # Create a new user
+        new_user = User(username=username, password=password, email=email)
+        db.session.add(new_user)
+        db.session.commit()
+
+        flash('Account created successfully! You can now log in.', 'success')
+        return redirect(url_for('login'))
+
+    return render_template('new_user.html')
+
 
 @app.route('/logout')
 def logout():
@@ -33,8 +62,10 @@ def orders():
         flash('Please log in to view orders!', 'warning')
         return redirect(url_for('login'))
     
-    # Query menu items and user orders
-    menu_items = MenuItem.query.order_by(MenuItem.name, MenuItem.size).all()
+    menu_items = MenuItem.query.options(
+        joinedload(MenuItem.sizes)  # Load sizes associated with each menu item
+    ).order_by(MenuItem.name).all()
+
     user_orders = Order.query.filter_by(user_id=session['user_id']).all()
     
     return render_template('orders.html', menu_items=menu_items, orders=user_orders)
@@ -51,14 +82,18 @@ def create_order():
     size = request.form['size']
     quantity = int(request.form['quantity'])
     
-    # Query the price from the menu
-    menu_item = MenuItem.query.filter_by(name=item_name, size=size).first()
-    if not menu_item:
-        flash('Invalid menu item!', 'danger')
+    # Query the menu item and size/price relationship
+    size_price = SizePrice.query.join(MenuItem).filter(
+        MenuItem.name == item_name,
+        SizePrice.size == size
+    ).first()
+    
+    if not size_price:
+        flash('Invalid menu item or size!', 'danger')
         return redirect(url_for('orders'))
     
     # Calculate total price
-    total_price = menu_item.price * quantity
+    total_price = size_price.price * quantity
     
     # Create the order
     new_order = Order(
@@ -94,8 +129,8 @@ def menu_management():
     if request.method == 'POST':
         # Add a new menu item
         name = request.form.get('name')
-        sizes = request.form.getlist('size')  # List of sizes
-        prices = request.form.getlist('price')  # List of corresponding prices
+        sizes = request.form.getlist('size[]')  # List of sizes
+        prices = request.form.getlist('price[]')  # List of corresponding prices
 
         if name and sizes and prices and len(sizes) == len(prices):
             new_item = MenuItem(name=name)
