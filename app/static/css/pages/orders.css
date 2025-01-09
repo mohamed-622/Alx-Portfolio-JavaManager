@@ -1,180 +1,128 @@
-/* orders.css */
-/* components */
-.sidebar {
-    width: 200px;
-    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent */
-    padding: 15px;
-    height: 100vh;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    display: flex; /* Enable Flexbox */
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center items horizontally */
-    justify-content: center; /* Center items vertically */
-}
-.sidebar a {
-    display: block;
-    color: #333;
-    text-decoration: none;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    width: 100%; /* Make the links stretch across the sidebar */
-    text-align: center; /* Center the text within the links */
-}
-
-.sidebar a:hover {
-    background-color: rgb(212, 166, 106);
-}
-
+/* Background Styling */
 body {
-    display: flex;
+    background-image: url('../../images/background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
     font-family: Arial, sans-serif;
     margin: 0;
-    height: 100vh;
-    background-image: url('../../images/background.jpg');
-    background-size: cover; 
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent the image from repeating */
-    background-color: #f4f4f4; /* Fallback color */
-}
-.content h1 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
+    padding: 0;
 }
 
-.content ul li {
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for individual items */
-}
-
-
-.content {
-    flex-grow: 1;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9); /* Slight transparency */
-    border-radius: 10px;
-    margin: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    overflow-y: auto; /* Allow scrolling if content overflows */
-    max-height: calc(100vh - 20px); /* Prevent content from spilling out */
-}
-
-.content h1 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
-}
-
-.content ul {
-    list-style-type: none; /* Remove bullets */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
-}
-
-.content ul li {
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for individual items */
-}
-
-.content form {
+/* Navbar Styling */
+.navbar {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
+    background-color: #333;
+    padding: 10px;
 }
 
-.content form label {
-    font-size: 14px;
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin-right: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #575757;
+}
+
+/* Content Section Styling */
+.content {
+    margin: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Heading Styling */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Card Container Styling */
+.card-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.card-container, .content ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Center items horizontally */
+    padding: 0;
+    list-style: none; /* Remove default list styling */
+}
+
+/* Card Styling */
+.card {
+    width: 300px; /* Fixed width for cards */
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex; /* Ensure proper flex child behavior */
+    flex-direction: column; /* Stack card content */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Form Styling */
+form {
+    margin-top: 15px;
+}
+
+.form-label {
+    font-weight: bold;
     color: #555;
 }
 
-.content form select, 
-.content form input[type="number"] {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.form-select,
+.form-control {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     font-size: 14px;
 }
 
-.content form button {
+.btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
     background-color: #007bff;
     color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
+    transition: background-color 0.3s;
 }
 
-.content form button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+.btn:hover {
+    background-color: #0056b3;
 }
 
-.content ul li strong {
-    display: block;
-    font-size: 16px;
-    color: #000;
-    margin-bottom: 5px;
-}
-
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-top: 20px;
-}
-
-.card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    background-color: #f9f9f9;
-}
-
-.card h5 {
-    font-size: 1.25rem;
-    margin-bottom: 12px;
-}
-
-.card p {
-    margin: 4px 0;
-}
-
-
-
-/* responsiveness */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .sidebar {
-        width: 100px;
-        padding: 10px;
+    .card-container {
+        flex-direction: column;
+        align-items: center;
     }
 
-    .sidebar a {
-        font-size: 12px;
-        padding: 5px;
-    }
-
-    .content {
-        margin: 5px;
-        padding: 10px;
-    }
-
-    .content h1 {
-        font-size: 20px;
+    .card {
+        width: 90%;
     }
 }
