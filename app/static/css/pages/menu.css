@@ -13,8 +13,8 @@ body {
     background-color: #f4f4f4;
 }
 
-/* Sidebar styles */
-.sidebar {
+/* navbar styles */
+.navbar {
     width: 200px;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 15px;
@@ -26,7 +26,7 @@ body {
     justify-content: flex-start;
 }
 
-.sidebar a {
+.navbar a {
     display: block;
     color: #333;
     text-decoration: none;
@@ -38,7 +38,7 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.sidebar a:hover {
+.navbar a:hover {
     background-color: rgb(212, 166, 106);
 }
 
@@ -125,12 +125,12 @@ body {
 
 /* Responsiveness */
 @media (max-width: 768px) {
-    .sidebar {
+    .navbar {
         width: 100px;
         padding: 10px;
     }
 
-    .sidebar a {
+    .navbar a {
         font-size: 12px;
         padding: 5px;
     }

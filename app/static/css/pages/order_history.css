@@ -1,6 +1,6 @@
 /* order_history.css */
-/* Sidebar Styling */
-.sidebar {
+/* navbar Styling */
+.navbar {
     width: 200px;
     background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent */
     padding: 15px;
@@ -11,25 +11,25 @@
     align-items: center; /* Center items horizontally */
     justify-content: flex-start; /* Start from the top */
 }
-.sidebar a {
+.navbar a {
     display: block;
     color: #333;
     text-decoration: none;
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 5px;
-    width: 100%; /* Make the links stretch across the sidebar */
+    width: 100%; /* Make the links stretch across the navbar */
     text-align: center; /* Center the text within the links */
 }
 
-.sidebar a:hover {
+.navbar a:hover {
     background-color: rgb(212, 166, 106);
 }
 
 /* Body Styling */
 body {
     display: flex;
-    flex-direction: column; /* Stack the content and sidebar vertically */
+    flex-direction: column; /* Stack the content and navbar vertically */
     font-family: Arial, sans-serif;
     margin: 0;
     height: 100vh;
@@ -108,18 +108,18 @@ h1 {
 
 /* Responsiveness */
 @media (max-width: 768px) {
-    .sidebar {
+    .navbar {
         width: 100px;
         padding: 10px;
     }
 
-    .sidebar a {
+    .navbar a {
         font-size: 12px;
         padding: 5px;
     }
 
     body {
-        flex-direction: column; /* Stack sidebar and content vertically */
+        flex-direction: column; /* Stack navbar and content vertically */
     }
 
     .content {
