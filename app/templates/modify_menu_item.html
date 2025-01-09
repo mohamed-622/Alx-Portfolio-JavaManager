@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modify Menu Item</title>
+</head>
+<body>
+    <h1>Modify Menu Item</h1>
+    <form method="POST">
+        <label for="name">Item Name:</label>
+        <input type="text" name="name" id="name" value="{{ item.name }}" required>
+        <div id="size-price-container">
+            {% for size in item.sizes %}
+            <div>
+                <input type="text" name="size[]" placeholder="Size" value="{{ size.size }}" required>
+                <input type="number" step="0.01" name="price[]" placeholder="Price" value="{{ size.price }}" required>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="button" id="add-size-price">Add Size & Price</button>
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <script>
+        document.getElementById('add-size-price').addEventListener('click', function() {
+            const container = document.getElementById('size-price-container');
+            const newInputGroup = document.createElement('div');
+            newInputGroup.innerHTML = `
+                <input type="text" name="size[]" placeholder="Size (e.g., 30 cl)" required>
+                <input type="number" step="0.01" name="price[]" placeholder="Price (e.g., 5.00)" required>
+            `;
+            container.appendChild(newInputGroup);
+        });
+    </script>
+</body>
+</html>

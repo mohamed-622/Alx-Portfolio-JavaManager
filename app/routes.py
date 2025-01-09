@@ -144,3 +144,44 @@ def menu_management():
 
     menu_items = MenuItem.query.all()
     return render_template('menu.html', menu_items=menu_items)
+
+
+@app.route('/menu/modify/<int:item_id>', methods=['GET', 'POST'])
+def modify_menu_item(item_id):
+    if 'user_id' not in session:
+        flash('Please log in to access the menu management page.', 'warning')
+        return redirect(url_for('login'))
+
+    item = MenuItem.query.get_or_404(item_id)
+
+    if request.method == 'POST':
+        name = request.form.get('name')
+        sizes = request.form.getlist('size[]')
+        prices = request.form.getlist('price[]')
+
+        if name and sizes and prices and len(sizes) == len(prices):
+            item.name = name
+            # Remove old sizes and add new ones
+            item.sizes = []
+            for size, price in zip(sizes, prices):
+                item.sizes.append(SizePrice(size=size, price=float(price)))
+            db.session.commit()
+            flash(f'Menu item "{name}" updated successfully!', 'success')
+            return redirect(url_for('menu_management'))
+        else:
+            flash('Please provide valid input for name, sizes, and prices.', 'danger')
+
+    return render_template('modify_menu_item.html', item=item)
+
+
+@app.route('/menu/delete/<int:item_id>', methods=['POST'])
+def delete_menu_item(item_id):
+    if 'user_id' not in session:
+        flash('Please log in to access the menu management page.', 'warning')
+        return redirect(url_for('login'))
+
+    item = MenuItem.query.get_or_404(item_id)
+    db.session.delete(item)
+    db.session.commit()
+    flash(f'Menu item "{item.name}" deleted successfully!', 'success')
+    return redirect(url_for('menu_management'))
