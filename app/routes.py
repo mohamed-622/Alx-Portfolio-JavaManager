@@ -31,7 +31,7 @@ def new_user():
         
         if not username or not password or not email:
             flash('All three inputs are required.', 'danger')
-            return redirect(url_for('new_user'))
+            return redirect(url_for('login'))
         
         # Check if the user already exists
         existing_user = User.query.filter_by(username=username).first()
