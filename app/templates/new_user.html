@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>New User</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/new_user.css') }}">
 </head>
 <body>
     <h1>Create a New User</h1>
@@ -11,6 +12,6 @@
         <input type="email" name="email" placeholder="Email" required>
         <button type="submit">Create Account</button>
     </form>
-    <a href="{{ url_for('login') }}">Log In</a>
+    <h1><a href="{{ url_for('login') }}">Login</a></h1>
 </body>
 </html>

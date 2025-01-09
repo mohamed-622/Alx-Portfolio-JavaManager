@@ -2,10 +2,11 @@
 <html>
 <head>
     <title>Orders</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/orders.css') }}">
+    </head>
 <body>
     <div class="sidebar">
+        <a href="{{ url_for('orders') }}">Orders</a>
         <a href="{{ url_for('order_history') }}">Order History</a>
         <a href="{{ url_for('menu_management') }}">Menu</a>
         <a href="{{ url_for('logout') }}">Logout</a>

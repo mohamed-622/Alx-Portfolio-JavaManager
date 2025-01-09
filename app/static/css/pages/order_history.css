@@ -1,0 +1,142 @@
+/* order_history.css */
+/* Sidebar Styling */
+.sidebar {
+    width: 200px;
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent */
+    padding: 15px;
+    height: 100vh;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex; /* Enable Flexbox */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: flex-start; /* Start from the top */
+}
+.sidebar a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%; /* Make the links stretch across the sidebar */
+    text-align: center; /* Center the text within the links */
+}
+
+.sidebar a:hover {
+    background-color: rgb(212, 166, 106);
+}
+
+/* Body Styling */
+body {
+    display: flex;
+    flex-direction: column; /* Stack the content and sidebar vertically */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+    background-image: url('../../images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #f4f4f4; /* Fallback color */
+}
+
+/* Header Styling */
+h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+/* Calendar Container Styling */
+.calendar-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.calendar-container label {
+    font-size: 16px;
+    color: #555;
+    margin-right: 10px;
+}
+
+#calendar {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Orders List Styling */
+#order-list {
+    list-style-type: none; /* Remove bullets */
+    padding: 0;
+    margin: 0;
+}
+
+.order-item {
+    margin: 10px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for individual items */
+}
+
+.order-item strong {
+    font-size: 16px;
+    color: #000;
+}
+
+.order-item small {
+    display: block;
+    margin-top: 10px;
+    color: #666;
+}
+
+/* Content Area Styling */
+.content {
+    flex-grow: 1; /* This makes the content take up the remaining space */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Slight transparency */
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100px;
+        padding: 10px;
+    }
+
+    .sidebar a {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    body {
+        flex-direction: column; /* Stack sidebar and content vertically */
+    }
+
+    .content {
+        margin: 5px;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .calendar-container {
+        margin: 15px 0;
+    }
+
+    .order-item {
+        padding: 12px;
+        font-size: 14px;
+    }
+}

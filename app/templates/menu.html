@@ -2,9 +2,15 @@
 <html>
 <head>
     <title>Menu Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/menu.css') }}">
 </head>
 <body>
-    <a href="{{ url_for('orders') }}">Back to Orders</a>
+    <div class="sidebar">
+        <a href="{{ url_for('orders') }}">Orders</a>
+        <a href="{{ url_for('order_history') }}">Order History</a>
+        <a href="{{ url_for('menu_management') }}">Menu</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
     <h1>Menu Management</h1>
 
     </ul>
