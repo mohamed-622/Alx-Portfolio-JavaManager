@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, url_for, session, flash, c
 from . import db
 from .models import User, Order, MenuItem, SizePrice
 from sqlalchemy.orm import joinedload
+from datetime import datetime
 
 
 
@@ -66,7 +67,11 @@ def orders():
         joinedload(MenuItem.sizes)  # Load sizes associated with each menu item
     ).order_by(MenuItem.name).all()
 
-    user_orders = Order.query.filter_by(user_id=session['user_id']).all()
+    today = datetime.now().date()
+    user_orders = Order.query.filter(
+        Order.user_id == session['user_id'],
+        Order.created_at >= today
+    ).order_by(Order.created_at.desc()).limit(10).all()
     
     return render_template('orders.html', menu_items=menu_items, orders=user_orders)
 
