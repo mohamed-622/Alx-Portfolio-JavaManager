@@ -38,21 +38,21 @@
                 </div>
             </div>
             {% endfor %}
-        </div>
-            <h1>Today's Last Orders</h1>
-            <div class="card-container">
-                {% for order in orders %}
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Order Details</h5>
-                            <p class="card-text"><strong>Description:</strong> {{ order.description }}</p>
-                            <p class="card-text"><strong>Total Price:</strong> {{ order.total_price }} MAD</p>
-                            <p class="card-text"><strong>Time:</strong> {{ order.created_at.strftime('%H:%M') }}</p>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>            
-            </ul>
-        </div>
+        </ul>
+    </div>
+    <div class="card-container">
+        <h1>Today's Last Orders</h1>
+        
+        {% for order in orders %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Order Details</h5>
+                    <p class="card-text"><strong>Description:</strong> {{ order.description }}</p>
+                    <p class="card-text"><strong>Total Price:</strong> {{ order.total_price }} MAD</p>
+                    <p class="card-text"><strong>Time:</strong> {{ order.created_at.strftime('%H:%M') }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>            
 </body>
 </html>
