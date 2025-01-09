@@ -49,6 +49,11 @@ h1 {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.card-container h1 {
+    width: 100%; /* Ensures h1 spans the full width */
+    text-align: center; /* Centers the text horizontally */
+    margin-bottom: 20px; /* Adds spacing below the h1 */
+}
 .card-container, .content ul {
     display: flex;
     flex-wrap: wrap;
