@@ -8,27 +8,41 @@
     <form method="POST">
         <label for="name">Item Name:</label>
         <input type="text" name="name" id="name" value="{{ item.name }}" required>
+        
         <div id="size-price-container">
             {% for size in item.sizes %}
-            <div>
+            <div class="size-price-group">
                 <input type="text" name="size[]" placeholder="Size" value="{{ size.size }}" required>
                 <input type="number" step="0.01" name="price[]" placeholder="Price" value="{{ size.price }}" required>
+                <button type="button" class="remove-size-price">Remove</button>
             </div>
             {% endfor %}
         </div>
+        
         <button type="button" id="add-size-price">Add Size & Price</button>
         <button type="submit">Save Changes</button>
     </form>
 
     <script>
+        // Add new size and price input fields
         document.getElementById('add-size-price').addEventListener('click', function() {
             const container = document.getElementById('size-price-container');
             const newInputGroup = document.createElement('div');
+            newInputGroup.classList.add('size-price-group');
             newInputGroup.innerHTML = `
                 <input type="text" name="size[]" placeholder="Size (e.g., 30 cl)" required>
                 <input type="number" step="0.01" name="price[]" placeholder="Price (e.g., 5.00)" required>
+                <button type="button" class="remove-size-price">Remove</button>
             `;
             container.appendChild(newInputGroup);
+        });
+
+        // Event listener to remove size and price input fields
+        document.getElementById('size-price-container').addEventListener('click', function(event) {
+            if (event.target.classList.contains('remove-size-price')) {
+                const group = event.target.closest('.size-price-group');
+                group.remove();
+            }
         });
     </script>
 </body>
