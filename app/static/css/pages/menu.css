@@ -1,160 +1,158 @@
-/* orders.css */
-
-/* Global styles */
+/* General Styles */
 body {
-    display: flex;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    height: 100vh;
     background-image: url('../../images/background.jpg');
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #f4f4f4;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-/* navbar styles */
+/* Navbar Styles */
 .navbar {
-    width: 200px;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 15px;
-    height: 100vh;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+    background-color: #333;
+    overflow: hidden;
 }
 
 .navbar a {
+    float: left;
     display: block;
-    color: #333;
-    text-decoration: none;
-    margin-bottom: 15px;
-    padding: 10px;
-    border-radius: 5px;
-    width: 100%;
+    color: white;
     text-align: center;
-    transition: background-color 0.3s ease;
+    padding: 14px 20px;
+    text-decoration: none;
 }
 
 .navbar a:hover {
-    background-color: rgb(212, 166, 106);
+    background-color: #ddd;
+    color: black;
 }
 
-/* Content area styles */
-.content {
-    flex-grow: 1;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    margin: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    overflow-y: auto;
-    max-height: calc(100vh - 20px);
-}
-
-.content h1 {
-    font-size: 24px;
+/* Content Area Styles */
+h1,
+h2 {
     color: #333;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
+    text-align: center;
 }
 
-/* Menu items and order list */
-.content ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+h1 {
+    margin-top: 20px;
+    font-size: 2rem;
 }
 
-.content ul li {
+h2 {
+    font-size: 1.5rem;
+}
+
+/* Form Styles */
+form {
+    background-color: white;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form input[type="text"],
+form input[type="number"] {
+    width: 100%;
+    padding: 10px;
     margin: 10px 0;
-    padding: 15px;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.content ul li strong {
-    font-size: 16px;
-    color: #000;
-}
-
-.content form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.content form label {
-    font-size: 14px;
-    color: #555;
-}
-
-.content form select,
-.content form input[type="number"] {
-    padding: 8px;
-    border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 14px;
-    width: 100px; /* Set width to limit the form input field size */
+    box-sizing: border-box;
 }
 
-.content form button {
-    background-color: #007bff;
+form button {
+    background-color: #4CAF50;
     color: white;
+    padding: 12px 20px;
     border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
-    width: 150px; /* Fix button width */
-    transition: background-color 0.3s ease;
+    font-size: 1rem;
 }
 
-.content form button:hover {
+form button[type="button"] {
+    background-color: #007BFF;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+form button[type="button"]:hover {
     background-color: #0056b3;
 }
 
-/* Responsiveness */
-@media (max-width: 768px) {
-    .navbar {
-        width: 100px;
-        padding: 10px;
-    }
+/* Menu Items List Styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
 
-    .navbar a {
-        font-size: 12px;
-        padding: 5px;
-    }
+li {
+    background-color: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
 
-    .content {
-        margin: 5px;
-        padding: 10px;
-    }
+li strong {
+    font-size: 1.2rem;
+}
 
-    .content h1 {
-        font-size: 20px;
-    }
+ul li ul {
+    margin-left: 20px;
+}
 
-    .content ul li {
-        flex-direction: column;
-        padding: 10px;
-    }
+button {
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
 
-    .content form select,
-    .content form input[type="number"] {
-        width: 60px; /* Shrink the select and input fields */
-    }
+button:hover {
+    background-color: #e53935;
+}
 
-    .content form button {
-        width: 100%; /* Make the button full-width on small screens */
-    }
+/* Add Size & Price Section */
+#size-price-container {
+    margin-bottom: 20px;
+}
+
+#size-price-container div {
+    display: flex;
+    justify-content: space-between;
+}
+
+#size-price-container input {
+    width: 48%;
+}
+
+/* Modify/Delete Button Styles */
+button.modify,
+button.delete {
+    background-color: #007BFF;
+    color: white;
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+button.modify:hover,
+button.delete:hover {
+    background-color: #0056b3;
+}
+
+/* Hover Effects for Buttons */
+button:hover {
+    background-color: #45a049;
 }
