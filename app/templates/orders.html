@@ -39,10 +39,28 @@
             </div>
             {% endfor %}
         </ul>
+        <h1>Current Order</h1>
+        <form method="POST" action="{{ url_for('finalize_order') }}">
+            <button type="submit" class="btn btn-success">Finalize Order</button>
+        </form>
+        <ul>
+            {% if current_order %}
+                {% for item in current_order %}
+                <li>
+                    {{ item.quantity }} x {{ item.item_name }} ({{ item.size }}) - {{ item.item_total }} MAD
+                    <form method="POST" action="{{ url_for('remove_item') }}" style="display:inline;">
+                        <input type="hidden" name="item_index" value="{{ item.index }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                    </form>
+                </li>
+                {% endfor %}
+            {% else %}
+                <p>No items in the current order.</p>
+            {% endif %}
+        </ul>
     </div>
     <div class="card-container">
         <h1>Today's Last Orders</h1>
-        
         {% for order in orders %}
             <div class="card">
                 <div class="card-body">
