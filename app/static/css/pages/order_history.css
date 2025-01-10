@@ -1,36 +1,133 @@
-/* order_history.css */
+/* General Background Styling */
+body {
+    background-image: url('../../images/background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
 /* Navbar Styling */
 .navbar {
-    width: 200px;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 15px;
-    height: 100vh;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+    background-color: #333;
+    padding: 10px;
 }
 
 .navbar a {
-    display: block;
-    color: #333;
+    color: white;
     text-decoration: none;
-    margin-bottom: 10px;
-    padding: 10px;
+    padding: 10px 15px;
+    margin-right: 10px;
     border-radius: 5px;
-    width: 100%;
-    text-align: center;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 
 .navbar a:hover {
-    background-color: rgb(212, 166, 106);
+    background-color: #575757;
 }
 
-/* Card Hover Effect */
-.order-item:hover {
-    background-color: #f1f1f1;
+/* Content Section Styling */
+.content {
+    margin: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Heading Styling */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Calendar Container Styling */
+.calendar-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.calendar-container label {
+    font-weight: bold;
+    color: #555;
+    margin-right: 10px;
+}
+
+.calendar-container input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Order List Styling */
+#order-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+    /* Remove default list styling */
+}
+
+.order-item {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    /* Fixed width for order cards */
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.order-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.order-card {
+    padding: 15px;
+}
+
+.order-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.order-card span {
+    font-weight: normal;
+    color: #555;
+}
+
+.order-card p {
+    margin: 0;
+    color: #333;
+    font-weight: bold;
+}
+
+.order-card small {
+    display: block;
+    margin-top: 10px;
+    color: #777;
+    font-size: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #order-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .order-item {
+        width: 90%;
+    }
 }
