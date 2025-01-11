@@ -9,7 +9,7 @@ body {
 }
 
 /* Navbar Styling */
-.navbar {
+.nav-bar {
     display: flex;
     justify-content: center;
     /* Centers the navbar items horizontally */
@@ -19,7 +19,7 @@ body {
     padding: 10px;
 }
 
-.navbar a {
+.nav-bar a {
     color: white;
     text-decoration: none;
     padding: 10px 15px;
@@ -28,7 +28,7 @@ body {
     transition: background-color 0.3s;
 }
 
-.navbar a:hover {
+.nav-bar a:hover {
     background-color: #575757;
 }
 
@@ -50,8 +50,12 @@ h1 {
 
 /* Card Container Styling */
 .card-container {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding-bottom: 20px;
 }
 .card-container h1 {
     width: 100%; /* Ensures h1 spans the full width */
@@ -61,9 +65,9 @@ h1 {
 .card-container, .content ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
     justify-content: center; /* Center items horizontally */
-    padding: 0;
+    padding-bottom: 20px;
     list-style: none; /* Remove default list styling */
 }
 

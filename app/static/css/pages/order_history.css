@@ -9,7 +9,7 @@ body {
 }
 
 /* Navbar Styling */
-.navbar {
+.nav-bar {
     display: flex;
     justify-content: center;
     /* Centers the navbar items horizontally */
@@ -19,7 +19,7 @@ body {
     padding: 10px;
 }
 
-.navbar a {
+.nav-bar a {
     color: white;
     text-decoration: none;
     padding: 10px 15px;
@@ -28,7 +28,7 @@ body {
     transition: background-color 0.3s;
 }
 
-.navbar a:hover {
+.nav-bar a:hover {
     background-color: #575757;
 }
 
