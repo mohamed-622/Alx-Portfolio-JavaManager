@@ -11,6 +11,10 @@ body {
 /* Navbar Styling */
 .navbar {
     display: flex;
+    justify-content: center;
+    /* Centers the navbar items horizontally */
+    align-items: center;
+    /* Centers the navbar items vertically */
     background-color: #333;
     padding: 10px;
 }
