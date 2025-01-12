@@ -2,12 +2,19 @@
 <html>
 <head>
     <title>Modify Menu Item</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/pages/modify_menu_item.css') }}">
 </head>
 <body>
+     <div class="nav-bar">
+        <a href="{{ url_for('orders') }}">Orders</a>
+        <a href="{{ url_for('order_history') }}">Order History</a>
+        <a href="{{ url_for('menu_management') }}">Menu</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
     <h1>Modify Menu Item</h1>
     <form method="POST">
         <label for="name">Item Name:</label>
-        <input type="text" name="name" id="name" value="{{ item.name }}" required>
+        <input type="text" name="name" id="name-input" value="{{ item.name }}" required>
         
         <div id="size-price-container">
             {% for size in item.sizes %}
@@ -18,9 +25,10 @@
             </div>
             {% endfor %}
         </div>
-        
-        <button type="button" id="add-size-price">Add Size & Price</button>
-        <button type="submit">Save Changes</button>
+        <div id="action-buttons-container">
+            <button type="button" id="add-size-price">Add Size & Price</button>
+            <button type="submit" id="save0change">Save Changes</button>
+        </div>
     </form>
 
     <script>
