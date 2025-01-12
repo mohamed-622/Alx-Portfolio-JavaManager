@@ -1,8 +1,10 @@
+from datetime import datetime
 from flask import render_template, request, redirect, url_for, session, flash, current_app as app
+from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.orm import joinedload
 from . import db
 from .models import User, Order, MenuItem, SizePrice
-from sqlalchemy.orm import joinedload
-from datetime import datetime
+
 
 
 @app.route('/')
@@ -10,41 +12,27 @@ def home():
     # Redirect to the login/orders page if the user is logged in
     return redirect(url_for('login'))
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        user = User.query.filter_by(username=username, password=password).first()
-        
-        if user:
-            session['user_id'] = user.id
-            flash('Logged in successfully!', 'success')
-            return redirect(url_for('orders'))
-        else:
-            flash('Invalid username or password!', 'danger')
-    
-    return render_template('login.html')
-
 @app.route('/new_user', methods=['GET', 'POST'])
 def new_user():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
         email = request.form.get('email')
-        
+
         if not username or not password or not email:
             flash('All three inputs are required.', 'danger')
             return redirect(url_for('login'))
-        
+
         # Check if the user already exists
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             flash('Username already exists. Please choose a different one.', 'danger')
             return redirect(url_for('new_user'))
 
-        # Create a new user
-        new_user = User(username=username, password=password, email=email)
+        # Hash the password before saving it
+        hashed_password = generate_password_hash(password)
+        new_user = User(username=username,
+                        password=hashed_password, email=email)
         db.session.add(new_user)
         db.session.commit()
 
@@ -52,6 +40,22 @@ def new_user():
         return redirect(url_for('login'))
 
     return render_template('new_user.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+
+        if user and check_password_hash(user.password, password):
+            session['user_id'] = user.id
+            flash('Logged in successfully!', 'success')
+            return redirect(url_for('orders'))
+        else:
+            flash('Invalid username or password!', 'danger')
+
+    return render_template('login.html')
 
 @app.route('/logout')
 def logout():
