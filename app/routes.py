@@ -5,6 +5,11 @@ from sqlalchemy.orm import joinedload
 from datetime import datetime
 
 
+@app.route('/')
+def home():
+    # Redirect to the login/orders page if the user is logged in
+    return redirect(url_for('login'))
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
