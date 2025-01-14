@@ -2,9 +2,12 @@ from datetime import datetime
 from flask import render_template, request, redirect, url_for, session, flash, current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import joinedload
+from flask import send_file
 from . import db
 from .models import User, Order, MenuItem, SizePrice
-
+from io import BytesIO
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
 
 
 @app.route('/')
@@ -132,6 +135,40 @@ def create_order():
     flash(f'Added {quantity} x {item_name} ({size}) to your order!', 'success')
     return redirect(url_for('orders'))
 
+
+@app.route('/generate_receipt/<int:order_id>')
+def generate_receipt(order_id):
+    # Fetch the order details
+    order = Order.query.get(order_id)
+    if not order:
+        flash('Order not found!', 'danger')
+        return redirect(url_for('order_history'))
+
+    # Create an in-memory PDF
+    buffer = BytesIO()
+    pdf = canvas.Canvas(buffer, pagesize=letter)
+    pdf.setFont("Helvetica", 12)
+
+    # Add receipt content
+    pdf.drawString(50, 750, f"Receipt for Order #{order.order_number}")
+    pdf.drawString(
+        50, 730, f"Date: {order.created_at.strftime('%Y-%m-%d %H:%M:%S')}")
+    pdf.drawString(50, 710, f"Description: {order.description}")
+    pdf.drawString(50, 690, f"Total Price: {order.total_price:.2f} MAD")
+
+    pdf.drawString(50, 670, "Thank you for your purchase!")
+    pdf.showPage()
+    pdf.save()
+
+    # Return the PDF as a response
+    buffer.seek(0)
+    return send_file(
+        buffer,
+        mimetype='application/pdf',
+        as_attachment=True,
+        download_name=f"receipt_{order.order_number}.pdf"
+    )
+
 @app.route('/finalize_order', methods=['POST'])
 def finalize_order():
     if 'user_id' not in session:
@@ -164,7 +201,7 @@ def finalize_order():
     # Clear the current order
     session.pop('current_order', None)
     flash('Order finalized successfully!', 'success')
-    return redirect(url_for('orders'))
+    return redirect(url_for('generate_receipt', order_id=new_order.id))
 
 @app.route('/remove_item', methods=['POST'])
 def remove_item():

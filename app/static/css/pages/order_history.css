@@ -124,6 +124,31 @@ h1 {
     font-size: 12px;
 }
 
+/* Receipt Button Styling */
+.receipt-btn {
+    display: block;
+    margin: 15px auto 0;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.2s, transform 0.2s;
+    text-align: center;
+}
+
+.receipt-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.receipt-btn:active {
+    transform: translateY(0);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     #order-list {

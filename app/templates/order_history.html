@@ -37,6 +37,7 @@
                         <h3>{{ order.order_number }}: <span>{{ order.description }}</span></h3>
                         <p>Total: <strong>{{ order.total_price }} MAD</strong></p>
                         <small>Ordered on: {{ order.created_at.strftime('%Y-%m-%d') }}</small>
+                        <button class="receipt-btn" onclick="location.href='{{ url_for('generate_receipt', order_id=order.id) }}'">Receipt</button>
                     </div>
                 </div>
             {% endfor %}
