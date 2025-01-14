@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, url_for, session, flash, c
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import joinedload
 from flask import send_file
+from flask import jsonify
 from . import db
 from .models import User, Order, MenuItem, SizePrice
 from io import BytesIO
@@ -151,17 +152,17 @@ def generate_receipt(order_id):
 
     # Add receipt content
     pdf.drawString(50, 750, f"Receipt for Order #{order.order_number}")
-    pdf.drawString(
-        50, 730, f"Date: {order.created_at.strftime('%Y-%m-%d %H:%M:%S')}")
+    pdf.drawString(50, 730, f"Date: {order.created_at.strftime('%Y-%m-%d %H:%M:%S')}")
     pdf.drawString(50, 710, f"Description: {order.description}")
     pdf.drawString(50, 690, f"Total Price: {order.total_price:.2f} MAD")
-
     pdf.drawString(50, 670, "Thank you for your purchase!")
+
+    # Finalize the PDF
     pdf.showPage()
     pdf.save()
 
     # Return the PDF as a response
-    buffer.seek(0)
+    buffer.seek(0)  # Reset the pointer to the beginning of the buffer
     return send_file(
         buffer,
         mimetype='application/pdf',
@@ -174,20 +175,20 @@ def finalize_order():
     if 'user_id' not in session:
         flash('Please log in to finalize orders!', 'warning')
         return redirect(url_for('login'))
-    
+
     if 'current_order' not in session or not session['current_order']:
         flash('No items to finalize!', 'danger')
         return redirect(url_for('orders'))
-    
+
     # Combine items into a single description
     description = ", ".join(
         f"{item['quantity']} x {item['item_name']} ({item['size']})"
         for item in session['current_order']
     )
-    
+
     # Calculate total price
     total_price = sum(item['item_total'] for item in session['current_order'])
-    
+
     # Save the order
     new_order = Order(
         order_number=f"ORD{int(Order.query.count()) + 1:03}",
@@ -197,11 +198,22 @@ def finalize_order():
     )
     db.session.add(new_order)
     db.session.commit()
-    
+
     # Clear the current order
     session.pop('current_order', None)
-    flash('Order finalized successfully!', 'success')
-    return redirect(url_for('generate_receipt', order_id=new_order.id))
+
+    # Check if it's an AJAX request
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return jsonify({
+            'message': 'Order finalized successfully!',
+            'status': 'success',
+            # You can specify where to redirect after finalizing
+            'redirect_url': url_for('generate_receipt', order_id=new_order.id)
+        })
+    else:
+        flash('Order finalized successfully!', 'success')
+        return redirect(url_for('orders'))
+
 
 @app.route('/remove_item', methods=['POST'])
 def remove_item():

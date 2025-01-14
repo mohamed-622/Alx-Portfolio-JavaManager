@@ -41,9 +41,9 @@
         </ul>
         <h1>Current Order</h1>
         <form method="POST" action="{{ url_for('finalize_order') }}">
-            <button type="submit" class="btn btn-success">Finalize Order</button>
+            <button type="submit" class="btn btn-success" id="finalize-order-btn">Order</button>
         </form>
-        <ul>
+        <ul id="current-order-list">
             {% if current_order %}
                 {% for item in current_order %}
                 <li>
@@ -71,6 +71,11 @@
                 </div>
             </div>
         {% endfor %}
-    </div>            
+    </div>
+    <script>
+    const finalizeOrderUrl = "{{ url_for('finalize_order') }}";
+    </script>
+    <script src="{{ url_for('static', filename='js/orders.js') }}"></script>
+
 </body>
 </html>
