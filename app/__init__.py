@@ -1,7 +1,12 @@
 import pymysql
+import os
+from dotenv import load_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
+
+# Load environment variables from the .env file
+load_dotenv()
 
 # Initialize the SQLAlchemy instance
 db = SQLAlchemy()
@@ -10,13 +15,17 @@ db = SQLAlchemy()
 def create_database_if_not_exists(uri):
     """Check if the database exists, and create it if it doesn't."""
     # Parse the URI for connection parameters
+    db_user = os.getenv("DB_USER")
+    db_password = os.getenv("DB_PASSWORD")
+    db_host = os.getenv("DB_HOST")
+
     connection = pymysql.connect(
-        host="localhost",
-        user="javashop",
-        password="1002",
+        host=db_host,
+        user=db_user,
+        password=db_password,
     )
 
-    db_name = "javashop_db"
+    db_name = os.getenv("DB_NAME")
 
     # Check if the database exists
     with connection.cursor() as cursor:
@@ -30,7 +39,6 @@ def create_database_if_not_exists(uri):
         else:
             print(f"Database '{db_name}' already exists.")
     connection.close()
-
 
 def create_app():
     """Create the Flask app instance."""
