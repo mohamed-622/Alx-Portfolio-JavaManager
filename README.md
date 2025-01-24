@@ -22,7 +22,7 @@ A coffee shop management system designed to streamline operations, enhance custo
 
    You can create any MySQL user you prefer. To create a user named `javashop`, log into MySQL:
    ```bash
-   mysql -u root -p
+   sudo mysql -u root -p
    ```
 
    Then, create the user and grant privileges:
