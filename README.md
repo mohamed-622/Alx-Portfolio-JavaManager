@@ -40,14 +40,28 @@ A coffee shop management system designed to streamline operations, enhance custo
      git clone https://github.com/mohamed-622/Alx-Portfolio-JavaManager.git
      cd Alx-Portfolio-JavaManager
      ```
+### 4. **Set Up Virtual Environment**
+   - Create and activate a virtual environment to isolate the project dependencies:
+     - **For Windows**:
+       ```bash
+       python -m venv venv
+       venv\Scripts\activate
+       ```
+     - **For macOS/Linux**:
+       ```bash
+       python3 -m venv venv
+       source venv/bin/activate
+       ```
 
-### 4. **Install Dependencies**
+   - Once activated, the terminal prompt should change to indicate the virtual environment is active (e.g., `(venv)`).
+
+### 5. **Install Dependencies**
    - Install required Python packages:
      ```bash
      pip install -r requirements.txt
      ```
 
-### 5. **Set Up Environment Variables**
+### 6. **Set Up Environment Variables**
 
    - Run the `set_user.py` script to set up your database credentials:
      ```bash
@@ -63,14 +77,14 @@ A coffee shop management system designed to streamline operations, enhance custo
 
      This script will automatically update the `.env` file with the provided details.
 
-### 6. **Run the Application**
+### 7. **Run the Application**
    ```bash
    python run.py
    ```
 
-### 7. **Access the Application**
+### 8. **Access the Application**
    - Open your browser and go to [http://localhost:5000](http://localhost:5000).
 
-### 8. **Troubleshooting**
+### 9. **Troubleshooting**
    - Ensure that MySQL is running and that the credentials in the `.env` file are correct.
    - If the app can't connect to the database, double-check that the user has the necessary permissions and the correct database is specified.
