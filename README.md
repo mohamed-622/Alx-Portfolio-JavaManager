@@ -88,3 +88,29 @@ A coffee shop management system designed to streamline operations, enhance custo
 ### 9. **Troubleshooting**
    - Ensure that MySQL is running and that the credentials in the `.env` file are correct.
    - If the app can't connect to the database, double-check that the user has the necessary permissions and the correct database is specified.
+### 10. **Project Architecture Overview**
+#### Application Overview
+- **Flask-based Backend**: Manages application logic and handles communication with the database.
+- **SQLAlchemy ORM**: Simplifies database management and queries.
+- **Frontend**: Built with HTML, CSS, and JavaScript for user interfaces and interaction.
+- **Dynamic Templating**: Powered by Jinja2 for rendering server-side templates.
+
+#### Technologies Used
+- **Frontend**:
+  - HTML, CSS
+  - Bootstrap for responsive design.
+  - JavaScript for interactivity.
+- **Backend**:
+  - Flask (Python)
+  - Jinja2 for templating.
+- **Database**:
+  - MySQL for data storage.
+  - SQLAlchemy ORM for database interactions.
+- **Third-party Tools**:
+  - Flask session for user authentication and order tracking.
+  - ReportLab for generating PDF receipts.
+- **Version Control**:
+  - Git / GitHub for collaboration and code versioning.
+
+### 11. **License**
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
